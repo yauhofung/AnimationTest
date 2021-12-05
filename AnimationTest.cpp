@@ -1,87 +1,108 @@
 #include <iostream>
-#include <chrono>
-#include <thread>
-
+#include <ctime>
 using namespace std;
 
 // begins animation
-void animate(int mode, char character, int limit, int frequency)
+void animate(int mode, int limit, int frequency)
 {
   int i = 1;
   // loops forever
   while (true)
   {
-    // loops forward
-    while (i < limit)
+    // detects static mode
+    if (mode == 4)
     {
       system("cls");
-      // prints characters for each step
-      for (int j = 0; j < i; j++)
+      // row-by-row
+      for (int i = 0; i < limit; i++)
       {
-        // detects diagonal mode
-        if (mode == 3)
+        // character-by-character
+        for (int j = 0; j < limit; j++)
         {
-          // indents each line
-          for (int k = 0; k < j; k++)
-          {
-            cout << ' ';
-          }
+          rand() % 2 ? cout << char(-2) : cout << ' ';
         }
-        cout << character;
-        // detects vertical and diagonal mode
-        if (mode == 2 || mode == 3)
-        {
-          cout << endl;
-        }
+        cout << endl;
       }
-      this_thread::sleep_for(chrono::milliseconds(1000 / frequency));
-      i++;
+      _sleep(1000.0 / frequency);
     }
-    // loops backward
-    while (i > 1)
+    else
     {
-      system("cls");
-      // prints characters for each step
-      for (int j = 0; j < i; j++)
+      // loops forward
+      while (i < limit)
       {
-        // detects diagonal mode
-        if (mode == 3)
+        system("cls");
+        // prints characters for each step
+        for (int j = 0; j < i; j++)
         {
-          // indents each line
-          for (int k = 0; k < j; k++)
+          // detects diagonal mode
+          if (mode == 3)
           {
-            cout << ' ';
+            // indents each line
+            for (int k = 0; k < j; k++)
+            {
+              cout << ' ';
+            }
+          }
+          cout << char(-2);
+          // detects vertical and diagonal mode
+          if (mode == 2 || mode == 3)
+          {
+            cout << endl;
           }
         }
-        cout << character;
-        // detects vertical and diagonal mode
-        if (mode == 2 || mode == 3)
-        {
-          cout << endl;
-        }
+        cout << endl;
+        _sleep(1000.0 / frequency);
+        i++;
       }
-      this_thread::sleep_for(chrono::milliseconds(1000 / frequency));
-      i--;
+      // loops backward
+      while (i > 1)
+      {
+        system("cls");
+        // prints characters for each step
+        for (int j = 0; j < i; j++)
+        {
+          // detects diagonal mode
+          if (mode == 3)
+          {
+            // indents each line
+            for (int k = 0; k < j; k++)
+            {
+              cout << ' ';
+            }
+          }
+          cout << char(-2);
+          // detects vertical and diagonal mode
+          if (mode == 2 || mode == 3)
+          {
+            cout << endl;
+          }
+        }
+        cout << endl;
+        _sleep(1000.0 / frequency);
+        i--;
+      }
     }
   }
 }
 
 int main()
 {
+  // disables cout buffering
+  ios::sync_with_stdio(false);
+
+  srand(time(NULL));
+
   cout << "===== Yau Ho's Animation Test =====" << endl;
 
   cout << "(1) Horizontal" << endl;
   cout << "(2) Vertical" << endl;
   cout << "(3) Diagonal" << endl;
+  cout << "(4) Static" << endl;
   cout << "Animation mode: ";
   int mode;
   cin >> mode;
 
-  cout << "Character to animate: ";
-  char character;
-  cin >> character;
-
-  cout << "Number of characters: ";
+  cout << "Width/Height: ";
   int limit;
   cin >> limit;
 
@@ -89,7 +110,7 @@ int main()
   int frequency;
   cin >> frequency;
 
-  animate(mode, character, limit, frequency);
+  animate(mode, limit, frequency);
 
   return 0;
 }
