@@ -19,7 +19,7 @@ void animate(int mode, int limit, int frequency)
         // character-by-character
         for (int j = 0; j < limit; j++)
         {
-          rand() % 2 ? cout << char(-2) : cout << ' ';
+          rand() % 2 ? cout << char(-37) : cout << ' ';
         }
         cout << endl;
       }
@@ -43,7 +43,7 @@ void animate(int mode, int limit, int frequency)
               cout << ' ';
             }
           }
-          cout << char(-2);
+          cout << char(-37);
           // detects vertical and diagonal mode
           if (mode == 2 || mode == 3)
           {
@@ -70,7 +70,7 @@ void animate(int mode, int limit, int frequency)
               cout << ' ';
             }
           }
-          cout << char(-2);
+          cout << char(-37);
           // detects vertical and diagonal mode
           if (mode == 2 || mode == 3)
           {
